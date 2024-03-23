@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import transformer 
+import DeepLearningMilaCourse.transformer 
 
 class LSTM(nn.Module):
     def __init__(
