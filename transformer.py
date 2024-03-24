@@ -420,8 +420,8 @@ class Transformer(nn.Module):
         # TODO: Write your code here
         # ==========================
         if mask is not None:
-            cls_mask = torch.tensor([True]).repeat(B, T+1).squeeze()
-            mask = torch.cat([cls_mask, mask], dim=1)
+            cls_mask = torch.tensor([True]).repeat(B, T+1).squeeze().to(device)
+            mask = torch.cat([cls_mask, mask], dim=1).to(device)
         x = self.dropout(x)
         for module in self.transformer: x = module(x) 
 
