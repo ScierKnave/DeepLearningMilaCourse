@@ -2,7 +2,11 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import DeepLearningMilaCourse.transformer 
+#import DeepLearningMilaCourse.transformer 
+import transformer
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 
 class LSTM(nn.Module):
     def __init__(
@@ -204,8 +208,7 @@ class DecoderAttn(nn.Module):
         # # ==========================
         # # TODO: Write your code here
         # # ==========================
-        if mask is not None: inputs = torch.masked_fill(inputs, mask, float('-inf'))
-        if self.mlp_attn is not None: inputs = self.mlp_attn(inputs)
+        if self.mlp_attn is not None: inputs = self.mlp_attn(inputs, mask)
         out = self.rnn(inputs, hidden_states)
         return out
 
@@ -261,3 +264,5 @@ class EncoderDecoder(nn.Module):
         x, hidden_states = self.decoder(x, hidden_states, mask)
         x = x[:, 0]
         return x, hidden_states
+
+
